@@ -20,7 +20,7 @@ export class Answer extends Entity<AnswerProps> {
   }
 
   get questionId() {
-    return this.props.contquestionIdent;
+    return this.props.questionId;
   }
 
   get createdAt() {
