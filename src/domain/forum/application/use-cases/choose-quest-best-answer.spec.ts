@@ -25,9 +25,6 @@ describe("Choose question Best answer", () => {
       questionId: question.id,
     });
 
-    console.log("question", question);
-    console.log("answer", answer);
-
     await inMemoryQuestionRepository.create(question);
     await inMemoryAnswerRepository.create(answer);
 
@@ -35,7 +32,6 @@ describe("Choose question Best answer", () => {
       authorId: question.authorId.toString(),
       answerId: answer.id.toString(),
     });
-    console.log(inMemoryQuestionRepository.items, answer.id);
     expect(inMemoryQuestionRepository.items[0].bestAnswerId).toEqual(answer.id);
   });
 

@@ -35,8 +35,6 @@ export class CommentOnQuestionUseCase {
     });
     const abc = await this.questionCommentsrepository.create(questionComment);
 
-    console.log("abc", abc);
-
     return {
       questionComment,
     };
