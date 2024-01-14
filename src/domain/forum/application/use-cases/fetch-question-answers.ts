@@ -1,5 +1,4 @@
 import { Answer } from "../../enterprise/entities/answer";
-import { Question } from "../../enterprise/entities/question";
 import { AnswerRepository } from "../repositories/answers-repository";
 
 interface FetchQuestionAnswersUseCaseRequest {
