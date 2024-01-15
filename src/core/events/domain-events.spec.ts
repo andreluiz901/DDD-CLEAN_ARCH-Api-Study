@@ -28,14 +28,15 @@ class CustomAggregate extends AggregateRoot<null> {
 describe("domain events", () => {
   it("should be able to dispatch and listen to evens", () => {
     const callBackSpy = vi.fn();
-
+    //subscriber created listening callbackSpy
     DomainEvents.register(callBackSpy, CustomAggregateCreated.name);
-
+    //event created not saving database
     const aggregate = CustomAggregate.create();
-
+    //ensures event has been created but not dispatched
     expect(aggregate.domainEvents).toHaveLength(1);
-
+    //Saving response event at database and letting event dispatch
     DomainEvents.dispatchEventsForAggregate(aggregate.id);
+    //Subscriber listen event and do what should be don
     expect(callBackSpy).toBeCalled();
     expect(aggregate.domainEvents).toHaveLength(0);
   });
