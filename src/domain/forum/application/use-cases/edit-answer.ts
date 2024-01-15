@@ -1,8 +1,8 @@
 import { Either, left, right } from "@/core/either";
 import { Answer } from "../../enterprise/entities/answer";
 import { AnswerRepository } from "../repositories/answers-repository";
-import { ResouceNotFoundError } from "./errors/resource-not-found-error";
-import { NotAllowedError } from "./errors/not-allowed-error";
+import { ResouceNotFoundError } from "@/core/errors/errors/resource-not-found-error";
+import { NotAllowedError } from "@/core/errors/errors/not-allowed-error";
 import { AnswerAttachment } from "../../enterprise/entities/answer-attachment";
 import { AnswerAttachmentList } from "../../enterprise/entities/answer-attachments-list";
 import { AnswerAttachmentsRepository } from "../repositories/answer-attachments-repository";

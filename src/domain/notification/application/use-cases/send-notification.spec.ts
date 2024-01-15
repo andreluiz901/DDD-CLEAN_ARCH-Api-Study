@@ -1,4 +1,3 @@
-import { UniqueEntityId } from "@/core/entities/unique-entity-id";
 import { SendNotificationUseCase } from "./send-notification";
 import { InMemoryNotificationRepository } from "test/repositories/in-memory-notificatios-repository";
 
