@@ -3,13 +3,20 @@ import { makeAnswer } from "test/factories/make-answer";
 import { DeleteAnswerUseCase } from "./delete-answer";
 import { UniqueEntityId } from "@/core/entities/unique-entity-id";
 import { NotAllowedError } from "./errors/not-allowed-error";
+import { InMemoryAnswerAttachmentsRepository } from "test/repositories/in-memory-answer-attachments-repository";
+import { makeAnswerAttachment } from "test/factories/make-answer-attachment";
 
+let inMemoryAnswerAttachmentRepository: InMemoryAnswerAttachmentsRepository;
 let inMemoryAnswerRepository: InMemoryAnswersRepository;
 let sut: DeleteAnswerUseCase;
 
 describe("Delete answer", () => {
   beforeEach(() => {
-    inMemoryAnswerRepository = new InMemoryAnswersRepository();
+    inMemoryAnswerAttachmentRepository =
+      new InMemoryAnswerAttachmentsRepository();
+    inMemoryAnswerRepository = new InMemoryAnswersRepository(
+      inMemoryAnswerAttachmentRepository
+    );
     sut = new DeleteAnswerUseCase(inMemoryAnswerRepository);
   });
 
@@ -21,12 +28,24 @@ describe("Delete answer", () => {
 
     await inMemoryAnswerRepository.create(newAnswer);
 
+    inMemoryAnswerAttachmentRepository.items.push(
+      makeAnswerAttachment({
+        answerId: newAnswer.id,
+        attachmentId: new UniqueEntityId("1"),
+      }),
+      makeAnswerAttachment({
+        answerId: newAnswer.id,
+        attachmentId: new UniqueEntityId("2"),
+      })
+    );
+
     await sut.execute({
       authorId: "Author-1",
       answerId: "answer-1",
     });
 
     expect(inMemoryAnswerRepository.items).toHaveLength(0);
+    expect(inMemoryAnswerAttachmentRepository.items).toHaveLength(0);
   });
 
   it("Should not be able to delete a answer from another user", async () => {
